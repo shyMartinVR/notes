@@ -1,0 +1,25 @@
+{
+  "name": "notes-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@quasar/extras": "^2.1.0",
+    "quasar": "^2.34.0",
+    "vue": "^3.5.43"
+  },
+  "devDependencies": {
+    "@quasar/vite-plugin": "^2.0.2",
+    "@vitejs/plugin-vue": "^6.0.9",
+    "sass-embedded": "^1.105.1",
+    "typescript": "5",
+    "vite": "^8.3.2",
+    "vue-tsc": "^3.3.12"
+  }
+}

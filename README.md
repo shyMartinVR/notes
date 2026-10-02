@@ -1,15 +1,27 @@
 # Martins Notes App
 
-Express app running on [Bun](https://bun.sh), written in TypeScript.
+Express app running on [Bun](https://bun.sh), written in TypeScript, with a Vue + [Quasar](https://quasar.dev) frontend built by Vite.
 
 ## Requirements
 
 - Docker with Docker Compose (v2.22+ for watch mode)
-- Bun (only needed for installing dependencies / type checking on the host)
+- Bun (for building the frontend and installing dependencies / type checking on the host)
+
+## Frontend
+
+The Docker image builds the Vue + Quasar frontend and includes `frontend/dist`; no host frontend build is needed to run the production container. For frontend-only work, run Vite locally:
+
+```sh
+cd frontend
+bun install
+bun run build
+```
+
+`bun run dev` starts the Vite dev server with hot reload for frontend-only work.
 
 ## Development
 
-Runs the backend in a container with `bun --watch`. Changes in `backend/src` are synced into the container; changes to `package.json` or `bun.lock` trigger a rebuild.
+Runs the backend in a container with `bun --watch`. Changes in `backend/src` are synced into the container. Frontend changes trigger an image rebuild, which rebuilds the frontend assets.
 
 ```sh
 cd backend
@@ -28,6 +40,8 @@ docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build --watc
 docker compose up --build -d
 ```
 
+The frontend assets are built into the image, so `frontend/dist` does not need to exist on the host.
+
 ## Configuration
 
 | Variable     | Default                                | Description                    |
@@ -42,3 +56,12 @@ docker compose up --build -d
 | `bun run dev`       | Start the dev container in watch mode |
 | `bun run start`     | Run the server directly with Bun     |
 | `bun run typecheck` | Type check with `tsc --noEmit`       |
+
+## Scripts (`frontend/`)
+
+| Script              | Description                            |
+| ------------------- | -------------------------------------- |
+| `bun run dev`       | Start the Vite dev server              |
+| `bun run build`     | Type check and build to `dist/`        |
+| `bun run preview`   | Preview the production build           |
+| `bun run typecheck` | Type check with `vue-tsc --noEmit`     |

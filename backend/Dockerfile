@@ -1,3 +1,13 @@
+FROM oven/bun:1-alpine AS frontend-build
+
+WORKDIR /app/frontend
+
+COPY frontend/package.json frontend/bun.lock ./
+RUN bun install --frozen-lockfile
+
+COPY frontend/ ./
+RUN bun run build
+
 FROM oven/bun:1-alpine AS base
 
 WORKDIR /app/backend
@@ -16,6 +26,7 @@ RUN bun install --frozen-lockfile
 
 COPY backend/tsconfig.json ./
 COPY backend/src ./src
+COPY --from=frontend-build /app/frontend/dist /app/frontend/dist
 
 USER bun
 
@@ -30,6 +41,7 @@ RUN bun install --frozen-lockfile --production
 
 COPY backend/tsconfig.json ./
 COPY backend/src ./src
+COPY --from=frontend-build /app/frontend/dist /app/frontend/dist
 
 USER bun
 

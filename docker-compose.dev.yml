@@ -12,3 +12,5 @@ services:
           path: ./backend/package.json
         - action: rebuild
           path: ./backend/bun.lock
+        - action: rebuild
+          path: ./frontend
