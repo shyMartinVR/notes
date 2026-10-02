@@ -42,6 +42,27 @@ docker compose up --build -d
 
 The frontend assets are built into the image, so `frontend/dist` does not need to exist on the host.
 
+SQLite data is stored in the `notes-data` Docker volume and persists when the container is recreated. To remove the database too, run `docker compose down --volumes`.
+
+## API
+
+All endpoints are under `/api`. Request and response bodies use JSON. Notes use `categoryId` (nullable); categories use `parentCategoryId` (nullable).
+
+| Method | Endpoint                | Description          |
+| ------ | ----------------------- | -------------------- |
+| GET    | `/api/notes`            | List notes           |
+| GET    | `/api/notes/:id`        | Get a note           |
+| POST   | `/api/notes`            | Create a note        |
+| PUT    | `/api/notes/:id`        | Replace a note       |
+| DELETE | `/api/notes/:id`        | Delete a note        |
+| GET    | `/api/categories`       | List categories      |
+| GET    | `/api/categories/:id`   | Get a category       |
+| POST   | `/api/categories`       | Create a category    |
+| PUT    | `/api/categories/:id`   | Replace a category   |
+| DELETE | `/api/categories/:id`   | Delete a category    |
+
+Create/update notes with `{"content":"...","categoryId":null}` and categories with `{"name":"...","parentCategoryId":null}`. Deleting a category leaves its notes uncategorized and its child categories at the root.
+
 ## Configuration
 
 | Variable     | Default                                | Description                    |

@@ -1,5 +1,6 @@
 import express from "express";
 import path from "node:path";
+import apiRouter from "./routes/api";
 
 const PORT = Number(process.env.PORT ?? 3000);
 const STATIC_DIR = process.env.STATIC_DIR ?? path.resolve(import.meta.dir, "../../frontend/dist");
@@ -7,6 +8,8 @@ const STATIC_DIR = process.env.STATIC_DIR ?? path.resolve(import.meta.dir, "../.
 const app = express();
 
 app.disable("x-powered-by");
+app.use(express.json());
+app.use("/api", apiRouter);
 app.use(express.static(STATIC_DIR));
 
 app.listen(PORT, () => {

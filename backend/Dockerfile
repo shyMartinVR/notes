@@ -14,6 +14,9 @@ WORKDIR /app/backend
 
 ENV PORT=3000
 ENV STATIC_DIR=/app/frontend/dist
+ENV DATABASE_PATH=/data/notes.sqlite
+
+RUN mkdir -p /data && chown bun:bun /data
 
 EXPOSE 3000
 
