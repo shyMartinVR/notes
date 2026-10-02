@@ -1,0 +1,19 @@
+{
+  "name": "notes-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "bun src/index.ts",
+    "dev": "docker compose -f ../docker-compose.yml -f ../docker-compose.dev.yml up --build --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.2",
+    "@types/express": "^5.0.6",
+    "typescript": "^7.0.2"
+  }
+}

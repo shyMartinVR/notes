@@ -1,0 +1,11 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      target: prod
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/dist:/app/frontend/dist:ro
+    restart: unless-stopped
